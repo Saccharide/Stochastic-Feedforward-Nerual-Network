@@ -136,7 +136,7 @@ class SFNN(object):
 
         for m in range(self._M):
             # Errors split by weights
-            y_err  = np.array(target).T - self._y[:,m]  # ??? Use N(,)
+            y_err  = np.random.normal(np.array(target).T - self._y[:,m], self._var)  # ??? Use N(,
             h4_err = np.dot(self._W5.T, y_err)
             h3_err = np.dot(self._W4.T, h4_err)
             h2_err = np.dot(self._W3.T, h3_err)
@@ -152,7 +152,7 @@ class SFNN(object):
             dh1 = (h1_err * self._f_prime(self._h1))[:,None]
             
             # importance weights * np.dot(delta, weight matrix transpose)
-            dW5 += w * np.dot(dy,  self._h4[:,m][:,None].T)  # ??? Use N(,)
+            dW5 += w * np.dot(np.random.normal(dy, self._var),  self._h4[:,m][:,None].T)  # ??? Use N(,)
             dW4 += w * np.dot(dh4, self._h3[:,m].T)
             dW3 += w * np.dot(dh3, self._h2[:,m].T)
             dW2 += w * np.dot(dh2, self._h1.T)
@@ -192,7 +192,7 @@ class SFNN(object):
             var = np.zeros((self._N,1))
             for i in range(self._N):
                 var[i] = (np.array(self.Y[i]).T - self.sample(self.X[i])) ** 2
-            self._var = var.sum() / (self._N - 2)
+            self._var = var.sum() / (self._N - 1)
             log.debug('\sigma^2 = %f', self._var)
 
     def sample(self, pattern):
@@ -205,7 +205,7 @@ class SFNN(object):
         h3[:self._Nh] = np.random.binomial(1, h3[:self._Nh])
         h4 = self._f(np.dot(self._W4, h3) + self._Bh4)
         y  = self._f(np.dot(self._W5, h4) + self._By)
-        return y  # ??? np.random.normal(y, self._var)
+        return np.random.normal(y, self._var)
 
 if __name__ == '__main__':
     # command-line interface
@@ -216,7 +216,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # create logger
-    logging.config.fileConfig('../logging.conf')
+    logging.config.fileConfig('logging.conf')
     log = logging.getLogger(__name__)
 
     # instantiate network
