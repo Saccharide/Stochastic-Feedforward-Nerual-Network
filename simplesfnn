@@ -1,0 +1,16 @@
+@article{DBLP:journals/corr/LeeKCS17,
+  author    = {Kimin Lee and
+               Jaehyung Kim and
+               Song Chong and
+               Jinwoo Shin},
+  title     = {Simplified Stochastic Feedforward Neural Networks},
+  journal   = {CoRR},
+  volume    = {abs/1704.03188},
+  year      = {2017},
+  url       = {http://arxiv.org/abs/1704.03188},
+  archivePrefix = {arXiv},
+  eprint    = {1704.03188},
+  timestamp = {Wed, 07 Jun 2017 14:41:52 +0200},
+  biburl    = {https://dblp.org/rec/bib/journals/corr/LeeKCS17},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
